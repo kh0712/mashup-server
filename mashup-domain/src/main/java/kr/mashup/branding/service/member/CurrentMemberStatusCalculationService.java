@@ -21,7 +21,7 @@ public class CurrentMemberStatusCalculationService {
     
     
     public Map<Long, CurrentMemberStatus> getCurrentStatus(
-        final Generation currentGeneration,
+        final Integer currentGenerationNumber,
         final List<Member> members
     ) {
         
@@ -39,7 +39,7 @@ public class CurrentMemberStatusCalculationService {
             final Optional<MemberGeneration> laterAttendedGeneration =
                 attendedGenerations
                     .stream()
-                    .filter(mg -> mg.getGeneration().getNumber().equals(currentGeneration.getNumber()))
+                    .filter(mg -> mg.getGeneration().getNumber().compareTo(currentGenerationNumber) > 0)
                     .findFirst();
             
             if(laterAttendedGeneration.isPresent()){
@@ -51,7 +51,7 @@ public class CurrentMemberStatusCalculationService {
             final Optional<MemberGeneration> currentAttendedGeneration = 
                 attendedGenerations
                     .stream()
-                    .filter(mg -> mg.getGeneration().getNumber().equals(currentGeneration.getNumber()))
+                    .filter(mg -> mg.getGeneration().getNumber().equals(currentGenerationNumber))
                     .findFirst();
             
             if(currentAttendedGeneration.isPresent()){

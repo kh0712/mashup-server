@@ -58,7 +58,7 @@ public class MemberFacadeService {
                 .map(MemberScoreQueryResult::getMember)
                 .collect(Collectors.toList());
         final Map<Long, CurrentMemberStatus> currentStatus =
-            currentMemberStatusCalculationService.getCurrentStatus(generation, members);
+            currentMemberStatusCalculationService.getCurrentStatus(generation.getNumber(), members);
 
         for (final MemberScoreQueryResult result : queryResults) {
 
@@ -136,7 +136,11 @@ public class MemberFacadeService {
 
         final List<Long> memberIds = memberStatusUpdateRequest.getMemberIds();
 
-        final List<Member> members = memberIds.stream().map(memberService::findMemberById).collect(Collectors.toList());
+        final List<Member> members = memberIds
+                .stream()
+                .map(memberService::findMemberById)
+                .collect(Collectors.toList());
+
         memberService.updateStatus(memberStatus, generation, memberStatusUpdateRequest.getPlatform(), members);
     }
 
@@ -146,8 +150,9 @@ public class MemberFacadeService {
         final Generation oldGeneration = generationService.getByNumberOrThrow(request.getOldGenerationNumber());
         final Generation newGeneration = generationService.getByNumberOrThrow(request.getNewGenerationNumber());
         final List<Member> members = memberService.findAllByMemberIds(request.getMemberIds());
+        final Platform platform = request.getPlatform();
 
-        memberService.transfer(oldGeneration, newGeneration, members);
+        memberService.transfer(oldGeneration, newGeneration, members, platform);
     }
 
     @Transactional

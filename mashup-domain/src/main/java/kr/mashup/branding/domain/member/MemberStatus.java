@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum MemberStatus {
     ACTIVE("활동 중"),
-    INACTIVE("활동 종료"),
-    RUN("중도 탈퇴");
+    INACTIVE("비활성화"),
+    RUN("중도 하차");
 
     private final String description;
 }

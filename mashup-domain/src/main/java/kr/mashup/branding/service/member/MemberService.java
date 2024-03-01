@@ -299,7 +299,11 @@ public class MemberService {
     }
 
     @Transactional
-    public void transfer(final Generation oldGeneration, final Generation newGeneration, final List<Member> members) {
+    public void transfer(
+        final Generation oldGeneration,
+        final Generation newGeneration,
+        final List<Member> members,
+        final Platform platform) {
 
         final List<Long> memberIds =
             members.stream().map(BaseEntity::getId).collect(Collectors.toList());
@@ -309,7 +313,7 @@ public class MemberService {
                 .findByMemberIdsAndGenerationNumber(memberIds, oldGeneration.getNumber())
                 .stream()
                 .map(memberGeneration ->
-                    MemberGeneration.of(memberGeneration.getMember(), newGeneration, memberGeneration.getPlatform()))
+                    MemberGeneration.of(memberGeneration.getMember(), newGeneration, platform))
                 .collect(Collectors.toList());
 
         memberGenerationRepository.saveAll(newMemberGenerations);
