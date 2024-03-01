@@ -63,7 +63,7 @@ public class MemberController {
         return ApiResponse.success();
     }
 
-    @ApiOperation("멤버 해당 기수 활동 내역 삭제 및 멤버 삭제")
+    @ApiOperation("전 기수 멤버 관련 모든 기록 삭제")
     @DeleteMapping
     public ApiResponse<EmptyResponse> withdraw(
         @PathVariable Long memberId

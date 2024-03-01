@@ -123,7 +123,7 @@ public class MemberFacadeService {
     }
 
     @Transactional
-    public void withdraw(Long memberId) {
+    public void withdraw(final Long memberId) {
         memberService.deleteMember(memberId);
     }
 
