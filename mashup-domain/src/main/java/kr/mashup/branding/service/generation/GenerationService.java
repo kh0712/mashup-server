@@ -27,12 +27,7 @@ import java.util.stream.Collectors;
 public class GenerationService {
 
     private final GenerationRepository generationRepository;
-
-    public Generation getByIdOrThrow(final Long generationId) {
-        return generationRepository.findById(generationId)
-            .orElseThrow(() -> new NotFoundException(ResultCode.GENERATION_NOT_FOUND));
-    }
-
+    
     public Generation getByNumberOrThrow(final Integer number) {
         return generationRepository.findByNumber(number)
             .orElseThrow(() -> new NotFoundException(ResultCode.GENERATION_NOT_FOUND));

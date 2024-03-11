@@ -68,6 +68,7 @@ public class MemberController {
     public ApiResponse<EmptyResponse> withdraw(
         @PathVariable Long memberId
     ) {
+        // 회장 부회장 체크할지? 도 고민
         memberFacadeService.withdraw(memberId);
 
         return ApiResponse.success();
